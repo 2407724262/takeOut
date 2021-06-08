@@ -1,6 +1,6 @@
 # takeout
 
-> A Vue.js project
+> takeout
 
 ## Build Setup
 
