@@ -5,7 +5,8 @@
         fixed
         @click-left="onClickLeft"
       />
-      <div><h1>硅谷外卖</h1></div>
+      <div>
+        <h1>硅谷外卖</h1></div>
 
       <van-tabs v-model="active">
         <!--      登陆 表单-->
@@ -26,6 +27,7 @@
                 <template #right-icon>
                   <van-switch v-model="checked" size="20" @change="loginInput"/>
                 </template>
+
               </van-field>
 
               <div style="margin: 16px;">
@@ -122,10 +124,11 @@
               alert("用户名或密码不正确")
             }else{
                 app.mutationsLogin(res.data)   //登陆成功后，保存数据到state
+              localStorage.setItem("allname", JSON.stringify(res.data))
               window.localStorage.setItem("loingStateus",true);
               window.localStorage.setItem("account",res.data.account);
               window.localStorage.setItem("name",res.data.name);
-              app.$router.push('/user/'+res.data.name)
+              app.$router.push('/home')
             }
           })
         },
@@ -136,6 +139,16 @@
               "name":this.username2
           }).then(function (res) {
             console.log(res.data)
+            if (res.data=="register success"){
+              alert("注册成功,前去登录")
+              history.go(0)
+            };
+            if (res.data=="register fail"){
+              alert("抱歉，注册失败")
+            };
+            if (res.data=="account is exit"){
+              alert("用户已存在")
+            }
           })
         }
       }

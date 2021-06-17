@@ -12,13 +12,23 @@
 
 <script>
   import Vue from "vue"
+  import {mapMutations} from "vuex"
 export default {
-  name: 'App'
+  name: 'App',
+  methods:{
+    ...mapMutations(['mutationsLogin'])
+  },
+  created() {
+    // 获取长期存储的数据
+    var loingStateus= window.localStorage.getItem("loingStateus")
+    if (loingStateus){  //若为true就为登陆状态
+      var allname= window.localStorage.getItem("allname")
+       var allname=  JSON.parse(allname)
+      this.mutationsLogin(allname)   //登陆成功后，保存数据到state
+    }
+
+  }
 };
-  //定义一个额外的组件  用来放公共的部分  比如底部的导航栏
-  Vue.component("Publiclist",{
-    template:"#Publiclist",
-  })
 </script>
 
 <style>
